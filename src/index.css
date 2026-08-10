@@ -12,16 +12,16 @@
   --bg-surface: #243044;
   --ink: #e8eef6;
   --ink-muted: #8b9bb0;
-  --accent: #2dd4a8;
-  --accent-hover: #3ee8bb;
-  --accent-pressed: #1fb890;
+  --accent: #f0a35e;
+  --accent-hover: #f5b578;
+  --accent-pressed: #d9893f;
   --danger: #f07178;
   --danger-hover: #ff8a90;
-  --operator: #5b8def;
-  --operator-hover: #7aa3f5;
-  --key: #2c3a50;
-  --key-hover: #384a63;
-  --key-pressed: #1e2a3a;
+  --operator: #6ec8c0;
+  --operator-hover: #8adad3;
+  --key: #334155;
+  --key-hover: #40556e;
+  --key-pressed: #243041;
   --shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
   --radius: 20px;
   --font-ui: 'DM Sans', system-ui, sans-serif;
@@ -38,8 +38,8 @@ body {
   font-family: var(--font-ui);
   color: var(--ink);
   background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(45, 212, 168, 0.12), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 90% 80%, rgba(91, 141, 239, 0.14), transparent 50%),
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(240, 163, 94, 0.14), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 90% 80%, rgba(110, 200, 192, 0.12), transparent 50%),
     linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 55%, #152030 100%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
