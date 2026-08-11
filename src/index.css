@@ -7,25 +7,28 @@
 }
 
 :root {
-  --bg-deep: #0f1419;
-  --bg-mid: #1a2332;
-  --bg-surface: #243044;
-  --ink: #e8eef6;
-  --ink-muted: #8b9bb0;
-  --accent: #f0a35e;
-  --accent-hover: #f5b578;
-  --accent-pressed: #d9893f;
-  --danger: #f07178;
-  --danger-hover: #ff8a90;
-  --operator: #6ec8c0;
-  --operator-hover: #8adad3;
-  --key: #334155;
-  --key-hover: #40556e;
-  --key-pressed: #243041;
-  --shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
-  --radius: 20px;
-  --font-ui: 'DM Sans', system-ui, sans-serif;
-  --font-display: 'JetBrains Mono', ui-monospace, monospace;
+  --bg-deep: #d7dde8;
+  --bg-mid: #e8ecf3;
+  --ink: #1c2433;
+  --ink-muted: #6b778c;
+  --accent: #e4572e;
+  --accent-hover: #f06a42;
+  --accent-pressed: #c94620;
+  --danger: #c23b4a;
+  --operator: #2f6fed;
+  --operator-hover: #4a84f5;
+  --key: #eef2f8;
+  --key-hover: #e2e8f2;
+  --key-pressed: #d5dce8;
+  --key-func: #dde4ef;
+  --shell: rgba(255, 255, 255, 0.72);
+  --display: #1a2030;
+  --display-ink: #d8ffe8;
+  --display-muted: #7fa892;
+  --shadow: 0 28px 60px rgba(40, 55, 90, 0.18), 0 8px 18px rgba(40, 55, 90, 0.08);
+  --radius: 28px;
+  --font-ui: 'Outfit', system-ui, sans-serif;
+  --font-display: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
 html,
@@ -38,9 +41,9 @@ body {
   font-family: var(--font-ui);
   color: var(--ink);
   background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(240, 163, 94, 0.14), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 90% 80%, rgba(110, 200, 192, 0.12), transparent 50%),
-    linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 55%, #152030 100%);
+    radial-gradient(ellipse 70% 50% at 12% 18%, rgba(228, 87, 46, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 88% 82%, rgba(47, 111, 237, 0.12), transparent 50%),
+    linear-gradient(160deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
