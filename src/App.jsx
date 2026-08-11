@@ -118,6 +118,58 @@ export default function App() {
     setOverwrite(true)
   }, [])
 
+  const applyUnary = useCallback((fnKey) => {
+    if (display === 'Error') return
+
+    const value = parseFloat(display)
+    if (Number.isNaN(value)) return
+
+    let result = null
+    let expr = ''
+
+    switch (fnKey) {
+      case '√':
+        if (value < 0) {
+          setDisplay('Error')
+          setExpression('')
+          setPrevious(null)
+          setOperator(null)
+          setOverwrite(true)
+          return
+        }
+        result = Math.sqrt(value)
+        expr = `√(${formatDisplay(display)})`
+        break
+      case '∛':
+        result = Math.cbrt(value)
+        expr = `∛(${formatDisplay(display)})`
+        break
+      case 'x²':
+        result = value ** 2
+        expr = `(${formatDisplay(display)})²`
+        break
+      case 'x³':
+        result = value ** 3
+        expr = `(${formatDisplay(display)})³`
+        break
+      default:
+        return
+    }
+
+    const trimmed = trimResult(result)
+    if (trimmed === null) {
+      setDisplay('Error')
+      setExpression('')
+    } else {
+      setDisplay(trimmed)
+      setExpression(`${expr} =`)
+    }
+
+    setPrevious(null)
+    setOperator(null)
+    setOverwrite(true)
+  }, [display])
+
   const compute = useCallback((a, op, b) => {
     const result = OPERATORS[op](a, b)
     if (result === null) return null
@@ -196,6 +248,12 @@ export default function App() {
         case '%':
           applyPercent()
           break
+        case '√':
+        case '∛':
+        case 'x²':
+        case 'x³':
+          applyUnary(key)
+          break
         case '+':
         case '−':
         case '×':
@@ -211,6 +269,7 @@ export default function App() {
     },
     [
       applyPercent,
+      applyUnary,
       chooseOperator,
       clearAll,
       deleteLast,
@@ -234,6 +293,10 @@ export default function App() {
   }, [handlePress])
 
   const buttons = [
+    { label: '√', type: 'func', aria: 'Square root' },
+    { label: '∛', type: 'func', aria: 'Cube root' },
+    { label: 'x²', type: 'func', aria: 'Square' },
+    { label: 'x³', type: 'func', aria: 'Cube' },
     { label: 'AC', type: 'func', aria: 'All clear' },
     { label: '±', type: 'func', aria: 'Toggle sign' },
     { label: '%', type: 'func', aria: 'Percent' },
