@@ -1,13 +1,15 @@
 {
   "name": "calculator",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.1.0",
   "type": "module",
+  "description": "Responsive React calculator with roots, powers, and keyboard support",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite"
   },
   "dependencies": {
     "react": "^19.2.8",
