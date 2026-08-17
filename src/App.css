@@ -41,6 +41,116 @@
   color: var(--ink);
 }
 
+.history-toggle {
+  margin-left: auto;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  background: var(--key-func);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.history-toggle:hover {
+  color: var(--ink);
+  background: #d2dae8;
+}
+
+.history-toggle--active {
+  color: #fff;
+  background: var(--operator);
+}
+
+.history {
+  margin-bottom: 1rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 16px;
+  background: rgba(238, 242, 248, 0.85);
+  border: 1px solid rgba(40, 55, 90, 0.08);
+  animation: rise-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.history__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+}
+
+.history__title {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.history__clear {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+.history__clear:hover:not(:disabled) {
+  opacity: 1;
+}
+
+.history__clear:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.history__empty {
+  padding: 0.55rem 0.15rem 0.2rem;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.history__list {
+  list-style: none;
+  max-height: 8.5rem;
+  overflow-y: auto;
+  display: grid;
+  gap: 0.35rem;
+  scrollbar-width: thin;
+}
+
+.history__item {
+  width: 100%;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 12px;
+  text-align: right;
+  background: rgba(255, 255, 255, 0.7);
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.history__item:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.history__expr {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history__result {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
 .display {
   min-height: 6rem;
   margin-bottom: 1.15rem;

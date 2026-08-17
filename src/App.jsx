@@ -33,6 +33,8 @@ const KEY_MAP = {
   Delete: 'AC',
 }
 
+const MAX_HISTORY = 20
+
 function formatDisplay(value) {
   if (value === 'Error' || value === null || value === undefined) return 'Error'
   const str = String(value)
@@ -54,6 +56,27 @@ export default function App() {
   const [operator, setOperator] = useState(null)
   const [overwrite, setOverwrite] = useState(true)
   const [expression, setExpression] = useState('')
+  const [history, setHistory] = useState([])
+  const [showHistory, setShowHistory] = useState(true)
+
+  const pushHistory = useCallback((expr, result) => {
+    setHistory((current) => [
+      { id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, expr, result },
+      ...current,
+    ].slice(0, MAX_HISTORY))
+  }, [])
+
+  const clearHistory = useCallback(() => {
+    setHistory([])
+  }, [])
+
+  const recallHistory = useCallback((entry) => {
+    setDisplay(entry.result)
+    setExpression(entry.expr)
+    setPrevious(null)
+    setOperator(null)
+    setOverwrite(true)
+  }, [])
 
   const clearAll = useCallback(() => {
     setDisplay('0')
@@ -163,12 +186,13 @@ export default function App() {
     } else {
       setDisplay(trimmed)
       setExpression(`${expr} =`)
+      pushHistory(`${expr} =`, trimmed)
     }
 
     setPrevious(null)
     setOperator(null)
     setOverwrite(true)
-  }, [display])
+  }, [display, pushHistory])
 
   const compute = useCallback((a, op, b) => {
     const result = OPERATORS[op](a, b)
@@ -211,19 +235,21 @@ export default function App() {
 
     const current = parseFloat(display)
     const result = compute(previous, operator, current)
+    const expr = `${formatDisplay(previous)} ${operator} ${formatDisplay(display)} =`
 
     if (result === null) {
       setDisplay('Error')
       setExpression('')
     } else {
       setDisplay(result)
-      setExpression(`${formatDisplay(previous)} ${operator} ${formatDisplay(display)} =`)
+      setExpression(expr)
+      pushHistory(expr, result)
     }
 
     setPrevious(null)
     setOperator(null)
     setOverwrite(true)
-  }, [compute, display, operator, previous])
+  }, [compute, display, operator, previous, pushHistory])
 
   const handlePress = useCallback(
     (key) => {
@@ -332,12 +358,57 @@ export default function App() {
         <header className="calculator__brand">
           <span className="calculator__mark" aria-hidden="true" />
           <h1 className="calculator__title">Calc</h1>
+          <button
+            type="button"
+            className={`history-toggle${showHistory ? ' history-toggle--active' : ''}`}
+            onClick={() => setShowHistory((open) => !open)}
+            aria-expanded={showHistory}
+            aria-controls="calc-history"
+          >
+            History
+          </button>
         </header>
 
         <div className="display" aria-live="polite">
           <p className="display__expression">{expression || '\u00A0'}</p>
           <p className={displayClass}>{formatDisplay(display)}</p>
         </div>
+
+        {showHistory && (
+          <section className="history" id="calc-history" aria-label="Calculation history">
+            <div className="history__header">
+              <h2 className="history__title">Recent</h2>
+              <button
+                type="button"
+                className="history__clear"
+                onClick={clearHistory}
+                disabled={history.length === 0}
+              >
+                Clear
+              </button>
+            </div>
+
+            {history.length === 0 ? (
+              <p className="history__empty">No calculations yet</p>
+            ) : (
+              <ul className="history__list">
+                {history.map((entry) => (
+                  <li key={entry.id}>
+                    <button
+                      type="button"
+                      className="history__item"
+                      onClick={() => recallHistory(entry)}
+                      aria-label={`Recall ${entry.expr} ${formatDisplay(entry.result)}`}
+                    >
+                      <span className="history__expr">{entry.expr}</span>
+                      <span className="history__result">{formatDisplay(entry.result)}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
 
         <div className="keypad" role="group" aria-label="Keypad">
           {buttons.map(({ label, type, aria }) => (
