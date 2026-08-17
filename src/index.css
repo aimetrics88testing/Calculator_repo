@@ -7,28 +7,30 @@
 }
 
 :root {
-  --bg-deep: #d7dde8;
-  --bg-mid: #e8ecf3;
-  --ink: #1c2433;
-  --ink-muted: #6b778c;
-  --accent: #e4572e;
-  --accent-hover: #f06a42;
-  --accent-pressed: #c94620;
-  --danger: #c23b4a;
-  --operator: #2f6fed;
-  --operator-hover: #4a84f5;
-  --key: #eef2f8;
-  --key-hover: #e2e8f2;
-  --key-pressed: #d5dce8;
-  --key-func: #dde4ef;
-  --shell: rgba(255, 255, 255, 0.72);
-  --display: #1a2030;
-  --display-ink: #d8ffe8;
-  --display-muted: #7fa892;
-  --shadow: 0 28px 60px rgba(40, 55, 90, 0.18), 0 8px 18px rgba(40, 55, 90, 0.08);
-  --radius: 28px;
-  --font-ui: 'Outfit', system-ui, sans-serif;
-  --font-display: 'IBM Plex Mono', ui-monospace, monospace;
+  --bg-deep: #0c1210;
+  --bg-mid: #15201c;
+  --ink: #e7f2ec;
+  --ink-muted: #8aa397;
+  --accent: #b8f24a;
+  --accent-hover: #c9ff63;
+  --accent-pressed: #9ad632;
+  --danger: #ff6b7a;
+  --operator: #5fd6c0;
+  --operator-hover: #7eecd8;
+  --key: #24332d;
+  --key-hover: #2f4239;
+  --key-pressed: #1a2621;
+  --key-func: #1c2924;
+  --shell: #18241f;
+  --shell-edge: rgba(184, 242, 74, 0.18);
+  --display: #0a100e;
+  --display-ink: #e7f2ec;
+  --display-muted: #6f857a;
+  --panel: rgba(28, 41, 36, 0.92);
+  --shadow: 0 30px 70px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(184, 242, 74, 0.08);
+  --radius: 24px;
+  --font-ui: 'Sora', system-ui, sans-serif;
+  --font-display: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 html,
@@ -41,9 +43,9 @@ body {
   font-family: var(--font-ui);
   color: var(--ink);
   background:
-    radial-gradient(ellipse 70% 50% at 12% 18%, rgba(228, 87, 46, 0.14), transparent 55%),
-    radial-gradient(ellipse 60% 45% at 88% 82%, rgba(47, 111, 237, 0.12), transparent 50%),
-    linear-gradient(160deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
+    radial-gradient(ellipse 55% 45% at 15% 20%, rgba(184, 242, 74, 0.1), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 75%, rgba(95, 214, 192, 0.1), transparent 55%),
+    linear-gradient(155deg, var(--bg-deep) 0%, var(--bg-mid) 55%, #101916 100%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

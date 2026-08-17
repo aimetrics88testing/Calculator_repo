@@ -396,84 +396,90 @@ export default function App() {
           </div>
         </header>
 
-        <div className="display" aria-live="polite">
-          <p className="display__expression">{expression || '\u00A0'}</p>
-          <p className={displayClass}>{formatDisplay(display)}</p>
-        </div>
+        <div className="calculator__main">
+          <div className="display" aria-live="polite">
+            <p className="display__expression">{expression || '\u00A0'}</p>
+            <p className={displayClass}>{formatDisplay(display)}</p>
+          </div>
 
-        {showProfile && (
-          <section className="profile" id="calc-profile" aria-label="User profile">
-            <div className="profile__identity">
-              <span className="profile__avatar" aria-hidden="true">
-                {profile.initials}
-              </span>
-              <div>
-                <h2 className="profile__name">{profile.name}</h2>
-                <p className="profile__handle">{profile.handle}</p>
-              </div>
-            </div>
-            <dl className="profile__stats">
-              <div className="profile__stat">
-                <dt>Calculations</dt>
-                <dd>{history.length}</dd>
-              </div>
-              <div className="profile__stat">
-                <dt>Session</dt>
-                <dd>Local</dd>
-              </div>
-            </dl>
-          </section>
-        )}
-
-        {showHistory && (
-          <section className="history" id="calc-history" aria-label="Calculation history">
-            <div className="history__header">
-              <h2 className="history__title">Recent</h2>
+          <div className="keypad" role="group" aria-label="Keypad">
+            {buttons.map(({ label, type, aria }) => (
               <button
+                key={label}
                 type="button"
-                className="history__clear"
-                onClick={clearHistory}
-                disabled={history.length === 0}
+                className={`key key--${type}${operator === label && !overwrite ? ' key--active' : ''}`}
+                onClick={() => handlePress(label)}
+                aria-label={aria || label}
               >
-                Clear
+                {label}
               </button>
-            </div>
-
-            {history.length === 0 ? (
-              <p className="history__empty">No calculations yet</p>
-            ) : (
-              <ul className="history__list">
-                {history.map((entry) => (
-                  <li key={entry.id}>
-                    <button
-                      type="button"
-                      className="history__item"
-                      onClick={() => recallHistory(entry)}
-                      aria-label={`Recall ${entry.expr} ${formatDisplay(entry.result)}`}
-                    >
-                      <span className="history__expr">{entry.expr}</span>
-                      <span className="history__result">{formatDisplay(entry.result)}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        )}
-
-        <div className="keypad" role="group" aria-label="Keypad">
-          {buttons.map(({ label, type, aria }) => (
-            <button
-              key={label}
-              type="button"
-              className={`key key--${type}${operator === label && !overwrite ? ' key--active' : ''}`}
-              onClick={() => handlePress(label)}
-              aria-label={aria || label}
-            >
-              {label}
-            </button>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {(showProfile || showHistory) && (
+          <aside className="calculator__side">
+            {showProfile && (
+              <section className="profile" id="calc-profile" aria-label="User profile">
+                <div className="profile__identity">
+                  <span className="profile__avatar" aria-hidden="true">
+                    {profile.initials}
+                  </span>
+                  <div>
+                    <h2 className="profile__name">{profile.name}</h2>
+                    <p className="profile__handle">{profile.handle}</p>
+                  </div>
+                </div>
+                <dl className="profile__stats">
+                  <div className="profile__stat">
+                    <dt>Calculations</dt>
+                    <dd>{history.length}</dd>
+                  </div>
+                  <div className="profile__stat">
+                    <dt>Session</dt>
+                    <dd>Local</dd>
+                  </div>
+                </dl>
+              </section>
+            )}
+
+            {showHistory && (
+              <section className="history" id="calc-history" aria-label="Calculation history">
+                <div className="history__header">
+                  <h2 className="history__title">Recent</h2>
+                  <button
+                    type="button"
+                    className="history__clear"
+                    onClick={clearHistory}
+                    disabled={history.length === 0}
+                  >
+                    Clear
+                  </button>
+                </div>
+
+                {history.length === 0 ? (
+                  <p className="history__empty">No calculations yet</p>
+                ) : (
+                  <ul className="history__list">
+                    {history.map((entry) => (
+                      <li key={entry.id}>
+                        <button
+                          type="button"
+                          className="history__item"
+                          onClick={() => recallHistory(entry)}
+                          aria-label={`Recall ${entry.expr} ${formatDisplay(entry.result)}`}
+                        >
+                          <span className="history__expr">{entry.expr}</span>
+                          <span className="history__result">{formatDisplay(entry.result)}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            )}
+          </aside>
+        )}
       </section>
     </main>
   )
