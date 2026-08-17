@@ -58,6 +58,13 @@ export default function App() {
   const [expression, setExpression] = useState('')
   const [history, setHistory] = useState([])
   const [showHistory, setShowHistory] = useState(true)
+  const [showProfile, setShowProfile] = useState(false)
+
+  const profile = {
+    name: 'Guest User',
+    handle: '@guest',
+    initials: 'GU',
+  }
 
   const pushHistory = useCallback((expr, result) => {
     setHistory((current) => [
@@ -358,21 +365,65 @@ export default function App() {
         <header className="calculator__brand">
           <span className="calculator__mark" aria-hidden="true" />
           <h1 className="calculator__title">Calc</h1>
-          <button
-            type="button"
-            className={`history-toggle${showHistory ? ' history-toggle--active' : ''}`}
-            onClick={() => setShowHistory((open) => !open)}
-            aria-expanded={showHistory}
-            aria-controls="calc-history"
-          >
-            History
-          </button>
+          <div className="calculator__actions">
+            <button
+              type="button"
+              className={`history-toggle${showHistory ? ' history-toggle--active' : ''}`}
+              onClick={() => {
+                setShowHistory((open) => !open)
+                setShowProfile(false)
+              }}
+              aria-expanded={showHistory}
+              aria-controls="calc-history"
+            >
+              History
+            </button>
+            <button
+              type="button"
+              className={`profile-button${showProfile ? ' profile-button--active' : ''}`}
+              onClick={() => {
+                setShowProfile((open) => !open)
+                setShowHistory(false)
+              }}
+              aria-expanded={showProfile}
+              aria-controls="calc-profile"
+              aria-label="Open profile"
+            >
+              <span className="profile-button__avatar" aria-hidden="true">
+                {profile.initials}
+              </span>
+            </button>
+          </div>
         </header>
 
         <div className="display" aria-live="polite">
           <p className="display__expression">{expression || '\u00A0'}</p>
           <p className={displayClass}>{formatDisplay(display)}</p>
         </div>
+
+        {showProfile && (
+          <section className="profile" id="calc-profile" aria-label="User profile">
+            <div className="profile__identity">
+              <span className="profile__avatar" aria-hidden="true">
+                {profile.initials}
+              </span>
+              <div>
+                <h2 className="profile__name">{profile.name}</h2>
+                <p className="profile__handle">{profile.handle}</p>
+              </div>
+            </div>
+            <dl className="profile__stats">
+              <div className="profile__stat">
+                <dt>Calculations</dt>
+                <dd>{history.length}</dd>
+              </div>
+              <div className="profile__stat">
+                <dt>Session</dt>
+                <dd>Local</dd>
+              </div>
+            </dl>
+          </section>
+        )}
 
         {showHistory && (
           <section className="history" id="calc-history" aria-label="Calculation history">
